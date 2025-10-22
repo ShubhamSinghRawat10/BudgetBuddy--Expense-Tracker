@@ -267,5 +267,4 @@ Feel free to contribute to this project by:
 
 This project is open source and available under the [MIT License](LICENSE).
 =======
-# Personal-Expense-Tracker
->>>>>>> ba9c1093a1a6e65ddb89e3c2e19c767cadf42b73
+
