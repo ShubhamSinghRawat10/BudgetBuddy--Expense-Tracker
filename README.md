@@ -14,7 +14,7 @@ A modern, responsive personal expense tracker built with React.js, Tailwind CSS,
 - ✅ Responsive design for mobile and desktop
 - ✅ Modern UI with Tailwind CSS
 
-## Technologies Used
+## Technologies Used 🤖
 
 - **React.js** - Frontend framework
 - **Tailwind CSS** - Styling and responsive design
