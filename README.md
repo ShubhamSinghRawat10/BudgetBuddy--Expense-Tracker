@@ -1,6 +1,7 @@
-# Personal Expense Tracker
+# Personal Expense Tracker 🚀🪙
 
 A modern, responsive personal expense tracker built with React.js, Tailwind CSS, and Context API for state management.
+## [personal-expense-tracker-jd7vtcjjh.vercel.app](https://personal-expense-tracker-self.vercel.app/)
 
 ## Features
 
@@ -13,7 +14,7 @@ A modern, responsive personal expense tracker built with React.js, Tailwind CSS,
 - ✅ Responsive design for mobile and desktop
 - ✅ Modern UI with Tailwind CSS
 
-## Technologies Used
+## Technologies Used 🤖
 
 - **React.js** - Frontend framework
 - **Tailwind CSS** - Styling and responsive design
@@ -266,5 +267,4 @@ Feel free to contribute to this project by:
 
 This project is open source and available under the [MIT License](LICENSE).
 =======
-# Personal-Expense-Tracker
->>>>>>> ba9c1093a1a6e65ddb89e3c2e19c767cadf42b73
+
