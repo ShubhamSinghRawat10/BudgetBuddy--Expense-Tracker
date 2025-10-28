@@ -1,8 +1,12 @@
 import React from 'react';
 import { useExpense } from '../context/ExpenseContext';
+import { useAuth } from '../context/AuthContext';
+import { formatCurrency } from '../utils/currency';
 
 const ExpenseItem = ({ expense, onEdit }) => {
   const { deleteExpense } = useExpense();
+  const { user } = useAuth();
+  const currency = user?.currency || 'USD';
 
   const handleDelete = () => {
     if (window.confirm('Are you sure you want to delete this expense?')) {
@@ -42,9 +46,7 @@ const ExpenseItem = ({ expense, onEdit }) => {
           )}
         </div>
         <div className="text-right">
-          <span className="text-xl font-bold text-red-600">
-            -${expense.amount.toFixed(2)}
-          </span>
+          <span className="text-xl font-bold text-red-600">-{formatCurrency(expense.amount, currency)}</span>
         </div>
       </div>
       

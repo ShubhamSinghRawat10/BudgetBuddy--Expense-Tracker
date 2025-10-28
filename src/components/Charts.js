@@ -11,6 +11,8 @@ import {
 } from 'chart.js';
 import { Bar, Pie } from 'react-chartjs-2';
 import { useExpense } from '../context/ExpenseContext';
+import { useAuth } from '../context/AuthContext';
+import { getCurrencyMeta } from '../utils/currency';
 
 ChartJS.register(
   CategoryScale,
@@ -24,6 +26,9 @@ ChartJS.register(
 
 const Charts = () => {
   const { expenses } = useExpense();
+  const { user } = useAuth();
+  const currency = user?.currency || 'USD';
+  const { symbol } = getCurrencyMeta(currency);
 
   // Calculate expenses by category
   const expensesByCategory = expenses.reduce((acc, expense) => {
@@ -95,7 +100,7 @@ const Charts = () => {
         beginAtZero: true,
         ticks: {
           callback: function(value) {
-            return '$' + value.toFixed(0);
+            return symbol + value.toFixed(0);
           }
         }
       }
@@ -126,7 +131,7 @@ const Charts = () => {
           label: function(context) {
             const total = context.dataset.data.reduce((a, b) => a + b, 0);
             const percentage = ((context.parsed / total) * 100).toFixed(1);
-            return `${context.label}: $${context.parsed.toFixed(2)} (${percentage}%)`;
+            return `${context.label}: ${symbol}${context.parsed.toFixed(2)} (${percentage}%)`;
           }
         }
       }

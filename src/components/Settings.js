@@ -1,8 +1,12 @@
 import React, { useRef } from 'react';
 import { useExpense } from '../context/ExpenseContext';
+import { useAuth } from '../context/AuthContext';
+import { formatCurrency } from '../utils/currency';
 
 const Settings = () => {
   const { clearAllData, exportData, importData, expenses, totalIncome } = useExpense();
+  const { user } = useAuth();
+  const currency = user?.currency || 'USD';
   const fileInputRef = useRef(null);
 
   const handleImportClick = () => {
@@ -103,7 +107,7 @@ const Settings = () => {
               </div>
               <div className="flex justify-between">
                 <span>Monthly Income:</span>
-                <span className="font-medium">${totalIncome.toFixed(2)}</span>
+                <span className="font-medium">{formatCurrency(totalIncome, currency)}</span>
               </div>
               <div className="flex justify-between">
                 <span>Storage Used:</span>

@@ -38,6 +38,15 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('expenseTracker_user', JSON.stringify(updatedUser));
   };
 
+  const setCurrency = (currencyCode) => {
+    const updatedUser = {
+      ...user,
+      currency: currencyCode
+    };
+    setUser(updatedUser);
+    localStorage.setItem('expenseTracker_user', JSON.stringify(updatedUser));
+  };
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem('expenseTracker_user');
@@ -48,6 +57,7 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     updateProfile,
+    setCurrency,
     isLoading
   };
 

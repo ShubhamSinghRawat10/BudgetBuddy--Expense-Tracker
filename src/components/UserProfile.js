@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 
 const UserProfile = () => {
-  const { user, logout, updateProfile } = useAuth();
+  const { user, logout, updateProfile, setCurrency } = useAuth();
   const fileInputRef = useRef(null);
   
   const [profileData, setProfileData] = useState({
@@ -49,6 +49,9 @@ const UserProfile = () => {
       ...prev,
       [name]: value
     }));
+    if (name === 'currency') {
+      setCurrency(value);
+    }
   };
 
   const handleProfilePictureUpload = (e) => {

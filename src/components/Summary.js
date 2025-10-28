@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { useExpense } from '../context/ExpenseContext';
+import { useAuth } from '../context/AuthContext';
+import { formatCurrency } from '../utils/currency';
 import Charts from './Charts';
 
 const Summary = () => {
   const { totalIncome, totalExpenses, balance, expenses, setIncome } = useExpense();
+  const { user } = useAuth();
+  const currency = user?.currency || 'USD';
   const [isEditingIncome, setIsEditingIncome] = useState(false);
   const [newIncome, setNewIncome] = useState(totalIncome.toString());
 
@@ -93,9 +97,7 @@ const Summary = () => {
               </button>
             </form>
           ) : (
-            <p className="text-2xl font-bold text-green-600">
-              ${totalIncome.toFixed(2)}
-            </p>
+            <p className="text-2xl font-bold text-green-600">{formatCurrency(totalIncome, currency)}</p>
           )}
         </div>
 
@@ -103,18 +105,14 @@ const Summary = () => {
         <div className="grid grid-cols-2 gap-4">
           <div className="bg-red-50 rounded-lg p-4">
             <h4 className="text-sm font-medium text-red-800 mb-1">Total Expenses</h4>
-            <p className="text-xl font-bold text-red-600">
-              ${totalExpenses.toFixed(2)}
-            </p>
+            <p className="text-xl font-bold text-red-600">{formatCurrency(totalExpenses, currency)}</p>
           </div>
           
           <div className={`rounded-lg p-4 ${balance >= 0 ? 'bg-green-50' : 'bg-red-50'}`}>
             <h4 className={`text-sm font-medium mb-1 ${balance >= 0 ? 'text-green-800' : 'text-red-800'}`}>
               Balance
             </h4>
-            <p className={`text-xl font-bold ${balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-              ${balance.toFixed(2)}
-            </p>
+            <p className={`text-xl font-bold ${balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>{formatCurrency(balance, currency)}</p>
           </div>
         </div>
 
@@ -156,9 +154,7 @@ const Summary = () => {
                   <span className="text-gray-700 font-medium">{category}</span>
                 </div>
                 <div className="text-right">
-                  <span className="text-lg font-bold text-gray-800">
-                    ${amount.toFixed(2)}
-                  </span>
+                  <span className="text-lg font-bold text-gray-800">{formatCurrency(amount, currency)}</span>
                   <div className="text-xs text-gray-500">
                     {((amount / totalExpenses) * 100).toFixed(1)}%
                   </div>
