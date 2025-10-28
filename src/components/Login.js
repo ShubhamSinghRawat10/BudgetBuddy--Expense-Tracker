@@ -99,7 +99,7 @@ const Login = () => {
             <span className="text-3xl">💰</span>
           </div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-            Expense Tracker
+            Budget-Buddy : Expense Tracker
           </h1>
           <p className="text-gray-600 text-lg">
             Manage your finances with style

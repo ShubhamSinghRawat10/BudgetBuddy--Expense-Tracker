@@ -55,18 +55,18 @@ function AppContent() {
               
               <div>
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  💰 Personal Expense Tracker
+                  💰Budget Buddy 
                 </h1>
                 <p className="text-gray-600 mt-1">
-                  Welcome back, {user?.firstName || user?.username}! Track your expenses and manage your budget effectively
+                  Welcome , {user?.firstName || user?.username}! Track all your expenses and manage your budget effectively
                 </p>
               </div>
             </div>
             
             <div className="flex items-center space-x-4">
-              <div className="text-sm text-gray-500">
+              {/* <div className="text-sm text-gray-500">
                 Built by ❤️Shubham Singh Rawat
-              </div>
+              </div> */}
               <button
                 onClick={() => setActiveTab('profile')}
                 className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-purple-600 transition duration-200 text-sm font-medium"
@@ -138,8 +138,8 @@ function AppContent() {
       <footer className="relative z-10 bg-white/80 backdrop-blur-md border-t border-white/20 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="text-center text-gray-500 text-sm">
-            <p>© 2025 Personal Expense Tracker. Built by ❤️Shubham Singh Rawat </p>
-            <p className="mt-1">Track your finances with ease , Data is stored locally in your browser for privacy.</p>
+            <p>© 2025 💸Budget Buddy --- Built by ❤️Shubham Singh Rawat </p>
+            <p className="mt-1">Track all your finances with ease .</p>
           </div>
         </div>
       </footer>
