@@ -10,6 +10,11 @@ const Login = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isForgotOpen, setIsForgotOpen] = useState(false);
+  const [resetEmail, setResetEmail] = useState('');
+  const [resetLoading, setResetLoading] = useState(false);
+  const [resetMessage, setResetMessage] = useState('');
+  const [resetError, setResetError] = useState('');
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -42,6 +47,33 @@ const Login = () => {
     }, 1000);
   };
 
+  const openForgot = () => {
+    setIsForgotOpen(true);
+    setResetEmail('');
+    setResetMessage('');
+    setResetError('');
+  };
+
+  const closeForgot = () => {
+    if (resetLoading) return;
+    setIsForgotOpen(false);
+  };
+
+  const handleForgotSubmit = (e) => {
+    e.preventDefault();
+    setResetError('');
+    setResetMessage('');
+    if (!resetEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(resetEmail)) {
+      setResetError('Please enter a valid email address');
+      return;
+    }
+    setResetLoading(true);
+    setTimeout(() => {
+      setResetLoading(false);
+      setResetMessage('If an account exists for this email, a reset link has been sent.');
+    }, 1000);
+  };
+
   const handleDemoLogin = () => {
     const demoUser = {
       username: 'demo_user',
@@ -52,21 +84,13 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full opacity-20 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-pink-400 to-red-500 rounded-full opacity-20 animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-green-400 to-blue-500 rounded-full opacity-10 animate-pulse delay-500"></div>
-      </div>
-
-      {/* Floating Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-4 h-4 bg-blue-400 rounded-full animate-bounce delay-100"></div>
-        <div className="absolute top-40 right-32 w-6 h-6 bg-purple-400 rounded-full animate-bounce delay-300"></div>
-        <div className="absolute bottom-32 left-40 w-5 h-5 bg-pink-400 rounded-full animate-bounce delay-700"></div>
-        <div className="absolute bottom-20 right-20 w-3 h-3 bg-green-400 rounded-full animate-bounce delay-500"></div>
-      </div>
+    <>
+    <div
+      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/background.jpg)` }}
+    >
+      {/* Subtle Overlay for readability */}
+      <div className="absolute inset-0 bg-white/60"></div>
 
       <div className="relative z-10 w-full max-w-md mx-4">
         {/* Logo and Title */}
@@ -135,9 +159,9 @@ const Login = () => {
                   Remember me
                 </label>
               </div>
-              <a href="#" className="text-sm text-blue-600 hover:text-blue-800 transition duration-200">
+              <button type="button" onClick={openForgot} className="text-sm text-blue-600 hover:text-blue-800 transition duration-200">
                 Forgot password?
-              </a>
+              </button>
             </div>
 
             {error && (
@@ -206,6 +230,47 @@ const Login = () => {
         </div>
       </div>
     </div>
+    {isForgotOpen && (
+      <div className="fixed inset-0 z-20 flex items-center justify-center">
+        <div className="absolute inset-0 bg-black/30" onClick={closeForgot}></div>
+        <div className="relative z-30 w-full max-w-md mx-4 bg-white rounded-2xl shadow-2xl p-6">
+          <div className="flex items-start justify-between">
+            <h3 className="text-xl font-semibold text-gray-800">Reset your password</h3>
+            <button onClick={closeForgot} className="text-gray-500 hover:text-gray-700">✕</button>
+          </div>
+          <p className="mt-2 text-sm text-gray-600">Enter the email associated with your account and we'll send you a password reset link.</p>
+          <form onSubmit={handleForgotSubmit} className="mt-4 space-y-4">
+            <div>
+              <label htmlFor="resetEmail" className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+              <input
+                type="email"
+                id="resetEmail"
+                name="resetEmail"
+                value={resetEmail}
+                onChange={(e) => setResetEmail(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+            {resetError && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">{resetError}</div>
+            )}
+            {resetMessage && (
+              <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm">{resetMessage}</div>
+            )}
+            <button
+              type="submit"
+              disabled={resetLoading}
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {resetLoading ? 'Sending...' : 'Send reset link'}
+            </button>
+          </form>
+        </div>
+      </div>
+    )}
+    </>
   );
 };
 

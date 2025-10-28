@@ -26,30 +26,12 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-400/10 via-purple-400/10 to-pink-400/10"></div>
-        <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-br from-blue-300/20 to-purple-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-pink-300/20 to-red-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-br from-green-300/20 to-blue-400/20 rounded-full blur-3xl animate-pulse delay-500"></div>
-      </div>
-
-      {/* Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-2 bg-blue-400/30 rounded-full animate-bounce"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
-            }}
-          ></div>
-        ))}
-      </div>
+    <div
+      className="min-h-screen relative overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/background.jpg)` }}
+    >
+      <div className="absolute inset-0 bg-white/60"></div>
+      {/* Background overlay only; decorative circles removed */}
 
       {/* Header */}
       <header className="relative z-10 bg-white/80 backdrop-blur-md shadow-lg border-b border-white/20">
@@ -170,7 +152,11 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+      <div
+        className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat relative"
+        style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/background.jpg)` }}
+      >
+        <div className="absolute inset-0 bg-white/60"></div>
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading...</p>
